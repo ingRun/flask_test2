@@ -1,5 +1,0 @@
-flask
-flask_script
-flask_migrate
-flask-sqlalchemy
-flask_login
