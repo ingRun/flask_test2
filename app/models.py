@@ -20,3 +20,12 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+    # 返回对象对应属性的值
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    # 定义返回字典中的键
+    def keys(self):
+        return ['id', 'username', 'password', 'email', 'phone']
+

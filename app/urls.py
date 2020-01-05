@@ -1,3 +1,5 @@
+import json
+
 from flask import request
 from flask_login import login_required, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -7,7 +9,6 @@ from app.tools.tools import is_register
 
 
 @app.route('/')
-@login_required
 def hello_world():
     return 'Hello World!'
 
@@ -37,7 +38,8 @@ def register():
 @app.route('/api/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return 'ERROR'
+        user = User.query.filter_by(email='ingrun@163.com').first()
+        return user.username
     if request.method == 'POST':
         email = request.values.get('email')
         password = request.values.get('password')
@@ -46,3 +48,12 @@ def login():
             login_user(user)
             return '登录成功'
         return '用户名或密码错误'
+
+
+@app.route('/api/getUserInfo', methods=['GET'])
+def get_user_info():
+    if request.method == 'GET':
+        username = request.values.get('username')
+        user = User.query.filter_by(username=username).first()
+        return json.dumps(dict(user))
+    return '请以get方式提交请求！'
