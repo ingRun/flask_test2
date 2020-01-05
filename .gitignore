@@ -7,3 +7,4 @@
 *.iml
 app.py
 venv
+./venv/
